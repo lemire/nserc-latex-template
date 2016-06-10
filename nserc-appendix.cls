@@ -1,6 +1,7 @@
 %% --------------------------------------
 %% NSERC Appendix class
 %% (C) 2011-2014 Sylvain Hallé
+%% (C) 2016 Daniel Lemire
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -10,9 +11,6 @@
 %% and version 1.3 or later is part of all distributions of LaTeX
 %% version 2005/12/01 or later.
 %%
-%% This work has the LPPL maintenance status `maintained'.
-%%
-%% The Current Maintainer of this work is Sylvain Hallé.
 %%
 %% Usage notes
 %% -----------
@@ -32,6 +30,7 @@
 %% ------------------------
 \def\@langdemande{english}
 \def\@inlinerefs{false}
+
 \DeclareOption{french}{\def\@langdemande{french}}
 \DeclareOption{english}{\def\@langdemande{english}}
 \DeclareOption{inlinerefs}{\def\@inlinerefs{true}}
@@ -40,9 +39,9 @@
 }
 \ProcessOptions
 \ifx\pdfoutput\undefined
-  \LoadClass[letterpaper,onecolumn,dvips]{article}
+  \LoadClass[12pt,singlespace,letterpaper,onecolumn,dvips]{article} %All text must be in 12 pt
 \else
-  \LoadClass[letterpaper,onecolumn,pdftex]{article}
+  \LoadClass[12pt,singlespace,letterpaper,onecolumn,pdftex]{article} %All text must be in 12 pt
 \fi
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{lastpage}
@@ -58,6 +57,16 @@
 %% Prevents heading and single lines to be split across pages
 \widowpenalty=1000
 \clubpenalty=1000
+\setlength{\topskip}{0.0in}
+\setlength{\abovecaptionskip}{0cm}
+\setlength{\belowcaptionskip}{0cm}
+\setlength{\intextsep}{0.4cm}
+
+%%% For grants, you want densely packed 
+\usepackage[small,compact]{titlesec}
+\titleformat{\section}[block]{\vspace{-0.0em}\bfseries}{\thesection.}{ 0em }{  }[ %
+\nopagebreak\nopagebreak\vspace{0.0em}\nopagebreak ]
+%%%
 
 %% Get parameters passed at package instantiation
 \newcommand{\nsercname}[1]{\def\@nname{#1}}
@@ -76,93 +85,48 @@
   \RequirePackage[english]{babel}
 }
 
+\usepackage{times}%All text must be in 12 pt Times New Roman font;
+
+\usepackage{xspace}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+
 %% Set page dimensions
 \geometry{hmargin=.75in,vmargin=.75in}
 
 %% Set interligne
-\renewcommand{\baselinestretch}{1}
+\usepackage{setspace}
+\singlespacing
+%\setstretch{0.7}
 
-%% Set headers and footers
-\fancypagestyle{plain}{%
-\fancyhf{}
-\fancyhead[L]{\footnotesize Page \thepage}%/\pageref{LastPage}}
-\fancyhead[R]{\footnotesize \@nname~$\bullet$~\@npin}
-\renewcommand{\footrulewidth}{0pt}
-\renewcommand{\headrulewidth}{0.4pt}%
-}
 
-%% Redefine title
-\renewcommand\maketitle{%
-\pagestyle{plain}
-{\noindent\sf\bfseries\Large\@title}
-\vskip 8pt
-}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\footnotesize Page \thepage} 
+\rhead{\footnotesize \@nname~$\bullet$~\@npin}
+\pagestyle{fancyplain}
 
-%% Redefine section
-\makeatletter
-\renewcommand{\section}{\@ifstar\sectionplain\sectionno}
-\newcommand{\sectionplain}[2]{%
-\refstepcounter{section}
-\vskip \@sectspacing
-{\noindent\sf\bfseries #1}
-\vskip \@sectspacing
-}
-\newcommand{\sectionno}[1]{%
-\refstepcounter{section}
-\vskip \@sectspacing
-{\noindent\sf\bfseries \thesection.\ #1}
-\vskip \@sectspacing
-}
-\makeatother
-
-%% ------------------------------
-%% Redefine sub-section
-%% ------------------------------
-\makeatletter
-\renewcommand{\subsection}{\@ifstar\subsectionplain\subsectionno}
-\newcommand{\subsectionplain}[2]{%
-\refstepcounter{subsection}
-\vskip 6pt
-{\noindent\uline{#1}}
-\vskip 6pt
-}
-\newcommand{\subsectionno}[1]{%
-\refstepcounter{subsection}
-\vskip 6pt
-{\noindent\underline{\alph{subsection})~#1}}
-\vskip 6pt
-}
-\makeatother
-
-%% ------------------------------
-%% Redefine paragraph
-%% ------------------------------
-\makeatletter
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-{4pt}%{3.25ex \@plus1ex \@minus.2ex}% Espacement avant le paragraphe
-{-1em}% Marge avant le texte du paragraphe (doit être négatif)
-{\normalfont\normalsize\bfseries}}
-\makeatother
-
-%% ------------------------------
-%% New: subsubsubsection
-%% ------------------------------
-\newcommand\subsubsubsection[1]{%
-\noindent{\textit{#1}}
-}
-
-%% ------------------------------
-%% So that the bibliography environment in the document
-%% uses the proper heading
-%% ------------------------------
 \usepackage[sort,square,numbers]{natbib}
-\renewcommand\bibsection{\section*{\refname}}
+\bibsep=\skip0
 
-% Hack: to compress bibitems
-\makeatletter
-\newcommand{\oldbibitem}[2][]{}
-\let\oldbibitem\bibitem
-\renewcommand{\bibitem}[2][]{\oldbibitem[#1]{#2} \vskip -4pt}
-\makeatother
 
-%% :mode=latex:wrap=none:
+%% Hack to have list items displayed in a more compact way
+\usepackage{paralist}
+\setlength{\pltopsep}{4pt}
+\setlength{\plitemsep}{4pt}
+
+\usepackage{hyperref}
+\hypersetup{%
+  pdfauthor = {\nsercname{}},
+  pdfsubject = {NSERC}
+}
+\usepackage{microtype}
+\usepackage{url}
+\usepackage[x11names]{xcolor}
+\usepackage[]{todonotes}
+\usepackage{comment}
+
+%% Documents are not dated
+\date{}
+
+

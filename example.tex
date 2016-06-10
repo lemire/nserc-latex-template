@@ -5,7 +5,7 @@
 %% fonts, and specify whether the document is in French or English
 %% -----------------------------------------------------
 \documentclass[12pt,english]{nserc-appendix}
-
+\usepackage{blindtext}
 %% --------------------------
 %% Inclusion of a basic configuration file. Go see this file: there are
 %% parameters (such as your name, etc.) to fill in. This avoids repeating
@@ -17,37 +17,69 @@
 %% ----------
 %% Set the title of the document in the PDF's metadata
 %% ----------
+\def\mytitle{Title of the document}
 \hypersetup{%
-  pdftitle = {Title of the document}
+  pdftitle = {\mytitle{}}
 }
 
 \begin{document}
-\title{Title of the document}
+\title{\mytitle{}}
+\chead{\footnotesize\mytitle{}}
 
 %% ----------
 %% Set start page number of the document
 %% ----------
 \setcounter{page}{7}
-\maketitle
+%\maketitle
 
-\section{A Section Name}
+\section{Introduction}
 
 From here on, write your text as usual, using sections, subsections,
 etc. You can also use references
 \cite{DBLPjournals/jsyml/Turing48,DBLPconf/afips/SolomonP76}.
 
-Nunc bibendum lorem in ligula malesuada mattis. Quisque quis fermentum
-neque, vitae venenatis ante. Etiam et iaculis nibh. Curabitur fringilla
-lobortis rhoncus. Vestibulum tristique nulla ac mi molestie congue. Nullam
-auctor laoreet orci a lobortis. Aenean convallis lacus a laoreet viverra.
+\blindtext{}
 
-Quisque ullamcorper tristique varius. Pellentesque nec est sed diam gravida
-vulputate non at ex. Donec rhoncus ligula purus, non vestibulum lorem
-hendrerit nec. Quisque sagittis nulla ac velit pulvinar laoreet. Nam viverra
-sodales mauris a sodales. Quisque vitae dignissim nibh. Suspendisse pulvinar
-lacus at consequat commodo. Praesent rhoncus, nibh quis porta dignissim,
-nisl tellus vestibulum felis, eu rutrum mauris magna consequat quam. Proin
-sagittis eleifend velit sit amet placerat.
+\section{Recent Progress}
+
+
+Describe your recent progress in research activities related to the proposal and, in addition for renewals, the progress attributable to your previous Discovery Grant.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+\centering
+This is a figure.
+\caption{\label{fig:demo}my caption}
+\end{wrapfigure}
+See Fig.~\ref{fig:demo}.
+\blindtext{}
+
+\section{Objectives}
+
+Define the short- and long-term objectives of your research program. Note that a research program should have a long-term vision that expands beyond the five years of the Discovery Grant. A single, short-term project or collection of projects does not constitute a research program.
+
+\blindtext{}
+
+\section{Literature Review}
+
+Discuss the literature pertinent to the proposal, placing the proposed research in the context of the state of the art.
+
+\blindtext{}
+
+\section{Methodology}
+
+Describe the methods and proposed approach, providing sufficient details to allow the reviewers to assess the feasibility of the research activities.
+
+\blindtext{}
+
+\section{Impact}
+
+Explain the anticipated significance of the work.
+
+\blindtext{}
+
+\section{Conclusion}
+
+\blindtext{}
 
 %% ------------
 %% References
