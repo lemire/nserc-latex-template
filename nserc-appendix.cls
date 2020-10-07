@@ -99,6 +99,12 @@
 \singlespacing
 %\setstretch{0.7}
 
+%% Redefine title
+\renewcommand\maketitle{%
+\pagestyle{plain}
+{\noindent\bfseries\normalsize\@title}
+\vskip 8pt
+}
 
 \fancyhf{} % sets both header and footer to nothing
 \renewcommand{\headrulewidth}{0pt}
